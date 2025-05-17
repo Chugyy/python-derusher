@@ -1,0 +1,10 @@
+fastapi==0.115.12
+uvicorn==0.34.2
+requests==2.32.3
+m3u8==3.6.0
+python-multipart==0.0.20
+APScheduler==3.10.4
+moviepy==1.0.3
+numpy==2.2.5
+soundfile==0.13.1
+tqdm==4.67.1 

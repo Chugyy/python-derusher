@@ -1,0 +1,79 @@
+# Cursor
+.cursor
+
+# Fichiers et dossiers Python
+__pycache__/
+__pycache__
+*.py[cod]
+*.pyo
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environnement virtuel
+env/
+venv/
+ENV/
+env.bak/
+.venv/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pyre type checker
+.pyre/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest
+.pytest_cache/
+
+# VSCode settings
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Logs
+*.log
+
+# Cython
+cython_debug/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Profiling data
+.prof
+
+# Local config
+*.env
+.env.*
