@@ -4,10 +4,12 @@ Un outil pour télécharger des vidéos Loom et supprimer les silences (dérusha
 
 ## Fonctionnalités
 
-- Téléchargement de vidéos Loom via une API REST (FastAPI)
-- Dérushage (suppression des silences) des vidéos
-- Interface en ligne de commande (CLI)
-- Support pour le dérushage de vidéos déjà téléchargées
+- 🌍 Téléchargement de vidéos Loom via une API REST (FastAPI)
+- ✂️ Dérushage (suppression des silences) des vidéos
+- 💻 Interface en ligne de commande (CLI)
+- ℹ️ Support pour le dérushage de vidéos déjà téléchargées
+
+> ***LE DISCORD 👉🏻 https://discord.gg/T6DCneUhD7***
 
 ## Prérequis
 
@@ -18,8 +20,8 @@ Un outil pour télécharger des vidéos Loom et supprimer les silences (dérusha
 
 1. Cloner le dépôt :
 ```
-git clone <repository-url>
-cd derusher
+git clone https://github.com/Chugyy/python-derusher.git
+cd python-derusher
 ```
 
 2. Créer et activer un environnement virtuel (recommandé) :
@@ -34,6 +36,99 @@ pip install -r requirements.txt
 ```
 
 4. S'assurer que FFmpeg est installé et accessible depuis le PATH du système.
+Voici un ajout détaillé sur la partie liée à **FFmpeg**, pour **Mac** *et* **Windows** :
+
+---
+
+## FFmpeg : Installation et Configuration (Mac & Windows)
+
+### Qu'est-ce que FFmpeg ?
+
+FFmpeg est un outil en ligne de commande ultra-puissant qui permet de traiter, convertir, extraire ou manipuler des fichiers audio et vidéo. Il est **indispensable** pour le dérushage, car il gère l’extraction audio, le découpage des segments vidéo, la concaténation, etc.
+
+### Installation de FFmpeg
+
+#### **Sur Mac 🍎**
+
+##### 1. Avec Homebrew (méthode recommandée)
+
+Si vous avez Homebrew (gestionnaire de paquets pour Mac), il suffit de lancer dans votre terminal :
+
+```bash
+brew install ffmpeg
+```
+
+* Homebrew s’occupe de tout.
+* Pour vérifier l’installation, faites :
+
+```bash
+ffmpeg -version
+```
+
+* Si une version s’affiche, c’est tout bon !
+
+##### 2. Sans Homebrew (méthode alternative)
+
+* Rendez-vous sur [https://ffmpeg.org/download.html#build-mac](https://ffmpeg.org/download.html#build-mac)
+* Téléchargez la dernière version pré-compilée ("Static build").
+* Décompressez le dossier, copiez le fichier `ffmpeg` dans `/usr/local/bin` ou `/opt/homebrew/bin` (pour Apple Silicon) :
+
+  ```bash
+  sudo cp /chemin/vers/ffmpeg /usr/local/bin/
+  sudo chmod +x /usr/local/bin/ffmpeg
+  ```
+* Vérifiez l’installation avec `ffmpeg -version`.
+
+#### **Sur Windows 🪟**
+
+##### 1. Téléchargement manuel (le plus simple)
+
+* Allez sur [https://ffmpeg.org/download.html#build-windows](https://ffmpeg.org/download.html#build-windows)
+  ou directement sur [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/)
+* Téléchargez la version *release full build* (`ffmpeg-release-full.7z`).
+* Extrayez le dossier ZIP ou 7z.
+* Copiez le chemin du dossier `bin` (par exemple : `C:\ffmpeg\bin`).
+
+##### 2. Ajouter FFmpeg au PATH
+
+Pour que FFmpeg soit accessible dans **n'importe quel terminal** :
+
+* Faites clic droit sur "Ce PC" > Propriétés > Paramètres système avancés > Variables d’environnement
+* Dans “Variables système”, cherchez `Path` puis "Modifier"
+* Cliquez sur "Nouveau" et collez le chemin du dossier `bin` de FFmpeg (par exemple : `C:\ffmpeg\bin`)
+* Cliquez sur OK pour tout valider
+* Fermez et rouvrez votre terminal, puis vérifiez avec :
+
+  ```cmd
+  ffmpeg -version
+  ```
+
+  Si la version s’affiche, c’est prêt !
+
+---
+
+### Problèmes fréquents
+
+* **Commande "ffmpeg" introuvable ?**
+
+  * Vérifiez que le binaire est bien dans le PATH système (voir ci-dessus).
+  * Sous Mac : Fermez et rouvrez Terminal.
+  * Sous Windows : Relancez l’invite de commandes après modification du PATH.
+* **Permission denied sur Mac ?**
+
+  * Ajoutez les droits d’exécution avec `chmod +x /usr/local/bin/ffmpeg`
+
+### Utilisation dans le projet
+
+* Le script Python fait appel à FFmpeg via des commandes système (`subprocess`).
+* **Sans FFmpeg**, aucune étape de dérushage ne fonctionnera !
+* Vous pouvez tester FFmpeg seul sur n’importe quelle vidéo :
+
+  ```bash
+  ffmpeg -i input.mp4 output.avi
+  ```
+
+  (pour convertir une vidéo en .avi, par exemple)
 
 ## Utilisation
 
@@ -56,32 +151,16 @@ Documentation interactive de l'API : http://localhost:8000/docs
 
 ### Interface en ligne de commande (CLI)
 
-Le CLI offre plusieurs façons d'utiliser l'outil :
-
-1. Mode interactif :
+1. Lance le CLI :
 ```
 python main.py
 ```
 
-2. Télécharger et dérusher une vidéo :
-```
-python main.py download <URL>
-```
+2. Choisis les options que tu veux :
+    1. **Télécharger et dérusher une vidéo :** Colle une URL Loom
+    2. **Dérusher une vidéo existante :** Mets un fichier vidéo dans `/temp` puis il apparaîtra dans les choix. (relance pour rafraîchir)
 
-3. Télécharger sans dérusher :
-```
-python main.py download <URL> --no-derush
-```
-
-4. Dérusher une vidéo existante :
-```
-python main.py derush <chemin-video>
-```
-
-5. Lister les vidéos disponibles dans le répertoire temp :
-```
-python main.py list
-```
+3. Col
 
 ## Structure du projet
 
@@ -120,9 +199,7 @@ Le dérushage est effectué en plusieurs étapes :
 ## Dépannage
 
 1. **Problème de téléchargement** : Vérifiez que l'URL Loom est valide et accessible.
-
 2. **Problème de dérushage** : Vérifiez que FFmpeg est correctement installé (`ffmpeg -version`).
-
 3. **Serveur inaccessible** : Vérifiez que le serveur est en cours d'exécution (`python server.py`).
 
 ## Licence
